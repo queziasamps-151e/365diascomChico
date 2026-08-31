@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ichigo Ichie — 365 dias de nós</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,450;1,9..144,500&family=Inter:wght@300;400;500&display=swap');
+
+  :root{
+    --paper: #F2EFE4;
+    --paper-warm: #ECE7D6;
+    --ink: #26301F;
+    --ink-soft: #5C6650;
+    --moss: #4F6B41;
+    --moss-deep: #35472B;
+    --moss-soft: #8DA179;
+    --moss-pale: #D7DEC7;
+    --light: #E9C77B;
+    --light-soft: rgba(233,199,123,0.35);
+    --bloom: #C97F65;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse 60% 40% at 15% 8%, var(--light-soft), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 85% 30%, rgba(141,161,121,0.25), transparent 60%),
+      radial-gradient(ellipse 55% 40% at 20% 75%, rgba(141,161,121,0.18), transparent 65%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .voice{ font-family: 'Fraunces', serif; }
+
+  section{
+    padding: 6rem 1.7rem;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ---------- floating clover / komorebi decorations ---------- */
+  .clover{
+    position: absolute;
+    opacity: 0.5;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 10px rgba(53,71,43,0.12));
+  }
+  .clover svg{ width: 100%; height: 100%; display:block; }
+
+  .light-spot{
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--light-soft), transparent 70%);
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  /* ---------- HERO ---------- */
+  #hero{
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.7rem;
+    position: relative;
+  }
+
+  .kanji-mark{
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+    color: var(--moss);
+    margin-bottom: 1.6rem;
+    opacity: 0.85;
+  }
+
+  #hero h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 8.5vw, 4.2rem);
+    line-height: 1.08;
+    margin: 0 0 1.3rem;
+    letter-spacing: -0.01em;
+  }
+  #hero h1 em{
+    font-style: italic;
+    color: var(--moss-deep);
+  }
+
+  .hero-sub{
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 32ch;
+    line-height: 1.75;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+
+  .scroll-cue{
+    position: absolute;
+    bottom: 2.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .petal-fall{
+    width: 5px; height: 5px;
+    border-radius: 50% 0 50% 50%;
+    background: var(--moss-soft);
+    animation: fall 2.6s ease-in-out infinite;
+  }
+  @keyframes fall{
+    0%{ transform: translateY(0) rotate(0deg); opacity: 0.9; }
+    100%{ transform: translateY(28px) rotate(140deg); opacity: 0; }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1.7rem;
+  }
+  .divider .rule{ width: 44px; height:1px; background: var(--moss-soft); border-radius: 2px; }
+  .divider .mark{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--moss);
+    white-space: nowrap;
+  }
+
+  /* ---------- prose ---------- */
+  .prose p{
+    font-size: 1.13rem;
+    line-height: 1.9;
+    margin: 0 0 1.4rem;
+    color: var(--ink);
+  }
+  .prose p:last-child{ margin-bottom: 0; }
+
+  .lede{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.5rem, 4.2vw, 2rem);
+    line-height: 1.45;
+    margin: 0 0 2rem;
+    color: var(--moss-deep);
+  }
+
+  .cap{
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bloom);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cap .mini-clover{ width: 14px; height: 14px; opacity: 0.9; }
+
+  /* ---------- moments row (replaces "signs" stat strip) ---------- */
+  .moments{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+    margin: 3rem 0;
+  }
+  .moment{
+    text-align: center;
+    padding: 1.6rem 0.7rem;
+    background: var(--paper-warm);
+    border-radius: 22px 8px 22px 8px;
+    position: relative;
+  }
+  .moment .num{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--moss-deep);
+    display:block;
+    margin-bottom: 0.4rem;
+  }
+  .moment .label{
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* ---------- gallery ---------- */
+  #galeria{
+    max-width: 100%;
+    padding: 5rem 0;
+    position: relative;
+  }
+  .gal-head{
+    max-width: 700px;
+    margin: 0 auto 2.6rem;
+    padding: 0 1.7rem;
+    text-align: center;
+  }
+  .gal-head h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 5.5vw, 2.6rem);
+    margin: 0.6rem 0 0.7rem;
+  }
+  .gal-head h2 em{ font-style: italic; color: var(--moss); }
+  .gal-head p{ color: var(--ink-soft); font-size: 0.95rem; font-style: italic; font-family:'Fraunces', serif; }
+
+  .bloom-frame{
+    position: relative;
+    width: min(500px, 90vw);
+    aspect-ratio: 4/5;
+    margin: 0 auto;
+    border-radius: 50% 50% 46% 46% / 55% 55% 45% 45%;
+    overflow: hidden;
+    box-shadow: 0 30px 55px -22px rgba(53,71,43,0.35), 0 0 0 10px var(--paper), 0 0 0 11px var(--moss-pale);
+  }
+  .bloom-frame img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1.3s ease, transform 6.5s ease-out;
+  }
+  .bloom-frame img.on{ opacity: 1; transform: scale(1); }
+
+  .bloom-frame::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(160deg, var(--light-soft) 0%, transparent 28%, transparent 72%, rgba(53,71,43,0.18) 100%);
+    pointer-events:none;
+    mix-blend-mode: soft-light;
+  }
+
+  .gal-foot{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 1.1rem;
+    margin-top: 1.8rem;
+  }
+  .counter-num{ font-family:'Fraunces', serif; font-style: italic; color: var(--moss-deep); }
+  .gal-count{ font-size: 0.85rem; color: var(--ink-soft); }
+
+  .frame-controls{ display:flex; gap: 0.8rem; align-items:center; }
+  .frame-controls button{
+    border: none;
+    background: var(--paper-warm);
+    color: var(--moss-deep);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 4px 10px rgba(53,71,43,0.15);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .frame-controls button:hover{ background: var(--moss-pale); transform: translateY(-1px); }
+
+  /* ---------- philosophy / dostoevsky note ---------- */
+  .heart-note{
+    border-radius: 28px 28px 28px 6px;
+    padding: 2.2rem 1.9rem;
+    background: var(--paper-warm);
+    margin-top: 2.2rem;
+    position: relative;
+    box-shadow: 0 18px 40px -28px rgba(53,71,43,0.4);
+  }
+  .heart-note p{ font-size: 1.03rem; line-height: 1.85; margin: 0 0 1.05rem; color: var(--ink); }
+  .heart-note p:last-child{ margin-bottom: 0; }
+  .heart-note .cap{ margin-bottom: 1rem; }
+
+  /* ---------- closing ---------- */
+  #fim{
+    text-align: center;
+    padding-bottom: 9rem;
+  }
+  #fim .lede{ color: var(--ink); }
+  .sign-off{
+    margin-top: 3rem;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--moss-deep);
+  }
+  .date-tag{
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 480px){
+    section{ padding: 4.5rem 1.2rem; }
+    .moments{ gap: 0.7rem; }
+    .moment{ padding: 1.2rem 0.4rem; border-radius: 18px 6px 18px 6px; }
+    .clover{ transform: scale(0.75); }
+  }
+</style>
+</head>
+<body>
+
+<!-- decorative clovers scattered subtly through the page -->
+<div class="clover" style="width:46px; top:120px; left:6%;">
+  <svg viewBox="0 0 64 64" fill="none"><g fill="#4F6B41" opacity="0.55"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>
+</div>
+<div class="light-spot" style="width:220px; height:220px; top:40px; right:-60px;"></div>
+
+<section id="hero">
+  <div class="kanji-mark">一期一会</div>
+  <h1 class="voice">365 dias de <em>nós</em></h1>
+  <p class="hero-sub">Ichigo ichie — este encontro não vai se repetir exatamente assim. Nenhum deles se repete.</p>
+  <div class="scroll-cue">
+    <div class="petal-fall"></div>
+    role
+  </div>
+</section>
+
+<div class="divider"><div class="rule"></div><span class="mark">o começo</span><div class="rule"></div></div>
+
+<section class="prose" style="position:relative;">
+  <div class="clover" style="width:36px; top:24px; right:8%;">
+    <svg viewBox="0 0 64 64" fill="none"><g fill="#8DA179" opacity="0.6"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>
+  </div>
+  <span class="cap"><svg class="mini-clover" viewBox="0 0 64 64" fill="none"><g fill="#C97F65"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>SP → FOR, um ano atrás</span>
+  <p class="lede">Existe uma palavra japonesa para o que aconteceu naquele avião: ichigo ichie. Um encontro, uma vez só, nunca mais repetido do mesmo jeito.</p>
+  <p>Eu te vi no saguão. Podia ter ficado só nisso — um rosto entre tantos que a gente cruza e esquece antes mesmo de sair do aeroporto. Mas você sentou do meu lado. E de repente aquele voo específico, aquele dia específico, deixou de ser um entre milhares e virou o único que importava.</p>
+  <p>Fiz três perguntas silenciosas, do tipo que a gente faz quando tem medo de assumir sozinha a coragem de puxar assunto. As três vezes a resposta veio. Eu não sei se era Deus, sorte ou só o mundo decidindo, por uma vez, ficar do meu lado. Sei que puxei assunto, peguei seu telefone, e desde então nunca mais paramos de nos falar.</p>
+</section>
+
+<div class="divider"><div class="rule"></div><span class="mark">o que ficou</span><div class="rule"></div></div>
+
+<section class="prose">
+  <span class="cap"><svg class="mini-clover" viewBox="0 0 64 64" fill="none"><g fill="#C97F65"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>um ano de todo dia</span>
+  <p class="lede">Amar alguém, dizem, é a coragem de continuar escolhendo — mesmo vendo tudo o que essa pessoa é, e não só a parte fácil de amar.</p>
+  <p>Tem gente que mede relacionamento em datas marcadas. Eu meço em ligação diária, no "como foi seu dia" que nunca virou obrigação, nas duas vezes que a distância cedeu e a gente ficou perto de verdade — em São Paulo, em Florianópolis. Cada um desses encontros foi só dele: irrepetível, mesmo que a gente tente voltar lá.</p>
+  <p>E talvez seja isso que dói e vale ao mesmo tempo: quanto mais bonito o encontro, maior a saudade no vazio até o próximo.</p>
+</section>
+
+<div class="moments">
+  <div class="moment"><span class="num">2</span><span class="label">encontros únicos<br>SP e Florianópolis</span></div>
+  <div class="moment"><span class="num">1</span><span class="label">avião,<br>uma vez só</span></div>
+  <div class="moment"><span class="num">365</span><span class="label">dias escolhendo<br>continuar</span></div>
+</div>
+
+<div class="divider"><div class="rule"></div><span class="mark">a galeria</span><div class="rule"></div></div>
+
+<section id="galeria">
+  <div class="gal-head">
+    <span class="kanji-mark" style="font-size:0.8rem;">木漏れ日</span>
+    <h2 class="voice">365 dias de: <em>quase tudo</em></h2>
+    <p>komorebi — a luz que passa entre as folhas, nunca do mesmo jeito duas vezes</p>
+  </div>
+
+  <div class="bloom-frame">
+    <img id="imgA" class="on" src="">
+    <img id="imgB" src="">
+  </div>
+
+  <div class="gal-foot">
+    <span class="gal-count">foto <span class="counter-num" id="counter">1</span> de <span id="total">—</span></span>
+    <div class="frame-controls">
+      <button id="prevBtn" aria-label="anterior">‹</button>
+      <button id="playBtn" aria-label="pausar">❚❚</button>
+      <button id="nextBtn" aria-label="próxima">›</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="rule"></div><span class="mark">o que eu não esqueci</span><div class="rule"></div></div>
+
+<section class="prose">
+  <span class="cap"><svg class="mini-clover" viewBox="0 0 64 64" fill="none"><g fill="#C97F65"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>sobre amar alguém inteiro, não só a parte fácil</span>
+  <p class="lede">Existe uma ideia que atravessa boa parte da grande literatura russa: amar de verdade não é admirar um ideal — é escolher ficar depois de ver a pessoa real, com suas falhas, suas dores e os dias em que ela não sabe agir direito.</p>
+  <div class="heart-note">
+    <span class="cap"><svg class="mini-clover" viewBox="0 0 64 64" fill="none"><g fill="#C97F65"><circle cx="24" cy="24" r="11"/><circle cx="40" cy="24" r="11"/><circle cx="24" cy="40" r="11"/><circle cx="40" cy="40" r="11"/></g></svg>uma nota, sem cobrança</span>
+    <p>Teve um período recente mais difícil entre a gente, eu sei. Mas eu também vi o que você fez por baixo disso: foi atrás de veterinária pra vir até em casa, correu atrás de clínica pros exames, comprou remédio, trocou a ração — sem que ninguém precisasse te obrigar a nada disso.</p>
+    <p>Gente que não se importa não faz esse tipo de esforço quieto. E é isso, mais do que qualquer dia ruim, que me faz continuar te vendo como alguém íntegro, cuidadoso e parecido comigo no que importa.</p>
+  </div>
+</section>
+
+<section id="fim">
+  <span class="kanji-mark" style="font-size:0.8rem;">一期一会</span>
+  <p class="lede">Nenhum modelo explica por que sentar do seu lado, naquele avião, mudou o resto do meu ano. Só existe o fato: aconteceu, se repetiu por 365 dias, de um jeito diferente a cada vez — e eu continuo escolhendo estar aqui pra ver o próximo.</p>
+  <div class="sign-off">com carinho, de quem testou a sorte três vezes e ganhou</div>
+  <div class="date-tag">SP ⇄ FOR — um ano</div>
+</section>
+
+<script>
+(function(){
+  const PASTA = 'fotos/';
+  const LISTA_JSON = PASTA + 'lista.json';
+  const INTERVALO_MS = 2400;
+
+  const imgA = document.getElementById('imgA');
+  const imgB = document.getElementById('imgB');
+  const counterEl = document.getElementById('counter');
+  const totalEl = document.getElementById('total');
+  const playBtn = document.getElementById('playBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let arquivos = [];
+  let currentIdx = 0; // índice dentro do array 'arquivos'
+  let showingA = true;
+  let timer = null;
+  let playing = true;
+
+  function pathFor(idx){
+    return PASTA + encodeURIComponent(arquivos[idx]);
+  }
+
+  function render(idx){
+    const nextImg = showingA ? imgB : imgA;
+    const curImg = showingA ? imgA : imgB;
+    nextImg.style.transform = 'scale(1.08)';
+    nextImg.src = pathFor(idx);
+    nextImg.onload = function(){
+      nextImg.classList.add('on');
+      curImg.classList.remove('on');
+      requestAnimationFrame(function(){ nextImg.style.transform = 'scale(1)'; });
+      showingA = !showingA;
+    };
+    nextImg.onerror = function(){
+      // se uma foto individual falhar ao carregar, pula pra próxima sem travar
+      if (arquivos.length <= 1) return;
+      currentIdx = (currentIdx + 1) % arquivos.length;
+      render(currentIdx);
+    };
+    counterEl.textContent = idx + 1;
+  }
+
+  function advance(){
+    currentIdx = (currentIdx + 1) % arquivos.length;
+    render(currentIdx);
+  }
+
+  function goPrev(){
+    currentIdx = (currentIdx - 1 + arquivos.length) % arquivos.length;
+    render(currentIdx);
+  }
+
+  function startTimer(){
+    stopTimer();
+    timer = setInterval(advance, INTERVALO_MS);
+  }
+  function stopTimer(){
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  playBtn.addEventListener('click', function(){
+    playing = !playing;
+    playBtn.textContent = playing ? '❚❚' : '▶';
+    if (playing) startTimer(); else stopTimer();
+  });
+
+  nextBtn.addEventListener('click', function(){
+    stopTimer();
+    advance();
+    if (playing) startTimer();
+  });
+
+  prevBtn.addEventListener('click', function(){
+    stopTimer();
+    goPrev();
+    if (playing) startTimer();
+  });
+
+  // carrega a lista real de arquivos gerada pelo gerar-lista.py
+  fetch(LISTA_JSON)
+    .then(function(res){
+      if (!res.ok) throw new Error('lista.json não encontrado');
+      return res.json();
+    })
+    .then(function(lista){
+      if (!Array.isArray(lista) || lista.length === 0){
+        throw new Error('lista.json vazio');
+      }
+      arquivos = lista;
+      totalEl.textContent = arquivos.length;
+      render(0);
+      startTimer();
+    })
+    .catch(function(err){
+      totalEl.textContent = '0';
+      counterEl.textContent = '—';
+      console.warn('Não foi possível carregar as fotos:', err.message);
+      console.warn('Verifique se fotos/lista.json existe (rode gerar-lista.py) e se o site está sendo aberto via servidor (não abrindo o arquivo direto no navegador).');
+    });
+})();
+</script>
+
+</body>
+</html>
