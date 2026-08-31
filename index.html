@@ -442,19 +442,23 @@
     return PASTA + encodeURIComponent(arquivos[idx]);
   }
 
+  function preload(idx){
+    const img = new Image();
+    img.src = pathFor(idx);
+  }
+
   function render(idx){
     const nextImg = showingA ? imgB : imgA;
     const curImg = showingA ? imgA : imgB;
-    nextImg.style.transform = 'scale(1.08)';
     nextImg.src = pathFor(idx);
     nextImg.onload = function(){
       nextImg.classList.add('on');
       curImg.classList.remove('on');
-      requestAnimationFrame(function(){ nextImg.style.transform = 'scale(1)'; });
       showingA = !showingA;
+      // já começa a baixar a próxima foto em segundo plano
+      preload((idx + 1) % arquivos.length);
     };
     nextImg.onerror = function(){
-      // se uma foto individual falhar ao carregar, pula pra próxima sem travar
       if (arquivos.length <= 1) return;
       currentIdx = (currentIdx + 1) % arquivos.length;
       render(currentIdx);
