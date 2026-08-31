@@ -340,6 +340,8 @@
 
 <section id="hero">
   <div class="kanji-mark">一期一会</div>
+  <button id="musicBtn" onclick="toggleMusic()" style="border:none; background:var(--paper-warm); color:var(--moss-deep); padding:0.5rem 1.1rem; border-radius:20px; font-family:'Fraunces',serif; font-style:italic; font-size:0.85rem; cursor:pointer; margin-bottom:1.4rem; box-shadow:0 4px 12px rgba(53,71,43,0.15);">♪ tocar nossa música</button>
+<div id="ytPlayer" style="position:absolute; width:1px; height:1px; overflow:hidden; opacity:0;"></div>
   <h1 class="voice">365 dias de <em>nós</em></h1>
   <p class="hero-sub">Ichigo ichie — este encontro não vai se repetir exatamente assim. Nenhum deles se repete.</p>
   <div class="scroll-cue">
@@ -526,6 +528,43 @@
     });
 })();
 </script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let ytPlayerReady = false;
+  let ytIsPlaying = false;
+  let ytPlayer;
 
+  function onYouTubeIframeAPIReady(){
+    ytPlayer = new YT.Player('ytPlayer', {
+      height: '1',
+      width: '1',
+      videoId: 'KO8ieIpqUNE',
+      playerVars: {
+        autoplay: 0,
+        loop: 1,
+        playlist: 'KO8ieIpqUNE',
+        controls: 0
+      },
+      events: {
+        'onReady': function(){ ytPlayerReady = true; }
+      }
+    });
+  }
+
+  function toggleMusic(){
+    if (!ytPlayerReady) return;
+    const btn = document.getElementById('musicBtn');
+    if (ytIsPlaying){
+      ytPlayer.pauseVideo();
+      btn.textContent = '♪ tocar nossa música';
+    } else {
+      ytPlayer.playVideo();
+      btn.textContent = '♪ pausar música';
+    }
+    ytIsPlaying = !ytIsPlaying;
+  }
+</script>
+</body>
+</html>
 </body>
 </html>
