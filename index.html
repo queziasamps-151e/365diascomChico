@@ -233,32 +233,34 @@
 
   .bloom-frame{
     position: relative;
-    width: min(500px, 90vw);
+    width: min(480px, 90vw);
     aspect-ratio: 4/5;
     margin: 0 auto;
-    border-radius: 50% 50% 46% 46% / 55% 55% 45% 45%;
+    border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 30px 55px -22px rgba(53,71,43,0.35), 0 0 0 10px var(--paper), 0 0 0 11px var(--moss-pale);
+    background: #F4EEDC;
+    padding: 16px 16px 60px;
+    box-shadow: 0 30px 55px -22px rgba(53,71,43,0.4), 0 2px 4px rgba(53,71,43,0.15);
   }
   .bloom-frame img{
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 16px; left: 16px; right: 16px;
+    bottom: 60px;
+    width: calc(100% - 32px);
+    height: calc(100% - 76px);
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.08);
-    transition: opacity 1.3s ease, transform 6.5s ease-out;
+    filter: sepia(0.18) contrast(0.96);
+    transition: opacity 0.6s ease;
   }
   .bloom-frame img.on{ opacity: 1; transform: scale(1); }
 
   .bloom-frame::after{
     content:'';
     position:absolute;
-    inset:0;
-    background: linear-gradient(160deg, var(--light-soft) 0%, transparent 28%, transparent 72%, rgba(53,71,43,0.18) 100%);
+    top: 16px; left: 16px; right: 16px; bottom: 60px;
+    background: linear-gradient(160deg, rgba(180,150,90,0.12) 0%, transparent 40%, transparent 65%, rgba(80,60,20,0.15) 100%);
     pointer-events:none;
-    mix-blend-mode: soft-light;
   }
 
   .gal-foot{
@@ -419,7 +421,7 @@
 (function(){
   const PASTA = 'fotos/';
   const LISTA_JSON = PASTA + 'lista.json';
-  const INTERVALO_MS = 2400;
+  const INTERVALO_MS = 1000;
 
   const imgA = document.getElementById('imgA');
   const imgB = document.getElementById('imgB');
